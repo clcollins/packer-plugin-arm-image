@@ -77,7 +77,7 @@ func (s *stepMountImage) Run(ctx context.Context, state multistep.StateBag) mult
 		}
 
 		err = run(ctx, state, fmt.Sprintf(
-			"mount %s %s",
+			"guestmount %s %s",
 			mntAndPart.part, mntpnt))
 		if err != nil {
 			return multistep.ActionHalt
