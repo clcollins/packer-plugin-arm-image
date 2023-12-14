@@ -70,7 +70,13 @@ func (s *stepMountImage) Run(ctx context.Context, state multistep.StateBag) mult
 
 		ui.Message(fmt.Sprintf("Mounting: %s", mntAndPart.part))
 
-		err := run(ctx, state, fmt.Sprintf(
+		err := os.MkdirAll(mntpnt, os.ModePerm)
+		if err != nil {
+			ui.Error(err.Error())
+			return multistep.ActionHalt
+		}
+
+		err = run(ctx, state, fmt.Sprintf(
 			"mount %s %s",
 			mntAndPart.part, mntpnt))
 		if err != nil {
